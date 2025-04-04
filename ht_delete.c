@@ -38,5 +38,5 @@ int ht_delete(hashtable_t *ht, char *key)
     if (tmp == NULL)
         return 84;
     pre_ht_del(ht, tmp, previous, p);
-    return 0;
+    return 0; 
 }
