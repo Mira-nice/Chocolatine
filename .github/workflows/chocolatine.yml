@@ -8,7 +8,7 @@ on:
     - "ga-ignore-*"
 
 env:
-  MIRROR_URL: git@github.com:EpitechPGEPromo2029/B-PSU-200-COT-2-1-minishell2-miranice.adjovi.git
+  MIRROR_URL: git@github.com:EpitechPGEPromo2029/B-DOP-200-COT-2-1-chocolatine-miranice.adjovi.git
   EXECUTABLES: mysh
 
 jobs:
@@ -18,7 +18,7 @@ jobs:
     steps:
       - name: Check if in mirror repo
         run: |
-          if [[ "$GITHUB_REPOSITORY" == *"B-PSU-200-COT-2-1-minishell2-miranice.adjovi"* ]]; then
+          if [[ "$GITHUB_REPOSITORY" == *"B-DOP-200-COT-2-1-chocolatine-miranice.adjovi"* ]]; then
             echo "This is the mirror repository, skipping jobs."
             exit 1
           fi
