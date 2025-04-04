@@ -92,7 +92,6 @@ jobs:
     name: "Mirroring "
     needs: run_tests
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && env.MIRROR_URL != ''
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
