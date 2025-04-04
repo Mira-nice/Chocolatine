@@ -1,0 +1,100 @@
+name: Chocolatine
+on: [push,pull_request]
+branches-ignore:
+  - "ga-ignore-*"
+
+env:
+  MIRROR_URL: git@github.com:EpitechPGEPromo2029/B-PSU-200-COT-2-1-minishell2-miranice.adjovi.git
+  EXECUTABLES: mysh
+
+jobs:
+
+  skip_conditions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if in mirror repo
+        run: |
+          if [[ "$GITHUB_REPOSITORY" == *"B-PSU-200-COT-2-1-minishell2-miranice.adjovi.git"* ]]; then
+            echo "This is the mirror repository, skipping jobs."
+            exit 1
+          fi
+  
+  check_coding_style:
+    name: "Check Coding Style"
+    needs: skip_conditions
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/epitech/coding-style-checker:latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Run coding style check
+        run: |
+          check.sh $(pwd) $(pwd) || true
+      - name: Display coding style errors
+        run: |
+          if [ -f coding-style-reports.log ]; then
+            while IFS= read -r line; do
+              file=$(echo "$line" | cut -d ':' -f1)
+              line_num=$(echo "$line" | cut -d ':' -f2)
+              msg=$(echo "$line" | cut -d ':' -f3-)
+              echo "::error file=$file,line=$line_num::$msg"
+            done < coding-style-reports.log
+            exit 1
+          fi
+
+  check_program_compilation:
+    name: "Check Compilation"
+    runs-on: ubuntu-latest
+    container:
+      image: epitechcontent/epitest-docker
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Compile project
+        run: timeout 2 make
+
+      - name: Clean project
+        run: make clean
+
+      - name: Verify executables
+        run: |
+          EXECUTABLES="mysh bin/game"
+          for exe in $EXECUTABLES; do
+            if [ ! -x "$exe" ]; then
+              echo "::error::Executable $exe is missing or not executable"
+              exit 1
+            fi
+          done
+
+  run_tests:
+    name: "Run_tests"
+    needs: check_program_compilation
+    runs-on: ubuntu-latest
+    container:
+      image: epitechcontent/epitest-docker
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run tests
+        run: |
+          timeout 2 make tests_run || exit 1
+
+  push_to_mirror:
+    name: "Mirroring "
+    needs: run_tests
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && env.MIRROR_URL != ''
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Mirror repository
+        uses: pixta-dev/repository-mirroring-action@v1
+        with:
+          ssh_private_key: ${{ secrets.ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMbgjaUSuI3XepGCDvp2NcudH2k4UDYcO91Q8fEyo1Ap miranice@miranice-HP-ProBook-440-14-inch-G9-Notebook-PC}
+          target_repo_url: ${{ env.MIRROR_URL }}
