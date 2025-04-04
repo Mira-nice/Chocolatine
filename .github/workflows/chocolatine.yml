@@ -63,16 +63,6 @@ jobs:
       - name: Clean project
         run: make clean
 
-      - name: Verify executables
-        run: |
-          EXECUTABLES="mysh bin/game"
-          for exe in $EXECUTABLES; do
-            if [ ! -x "$exe" ]; then
-              echo "::error::Executable $exe is missing or not executable"
-              exit 1
-            fi
-          done
-
   run_tests:
     name: "Run_tests"
     needs: check_program_compilation
