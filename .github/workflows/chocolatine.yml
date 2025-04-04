@@ -85,9 +85,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Mirror repository
-        uses: pixta-dev/repository-mirroring-action@v2.1.0
+        uses: pixta-dev/repository-mirroring-action@v1
         with:
           ssh_private_key: ${{ secrets.GIT_SSH_PRIVATE_KEY }}
           target_repo_url: ${{ env.MIRROR_URL }}
