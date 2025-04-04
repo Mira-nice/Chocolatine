@@ -100,5 +100,5 @@ jobs:
       - name: Mirror repository
         uses: pixta-dev/repository-mirroring-action@v1
         with:
-          ssh_private_key: ${{ secrets.ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMbgjaUSuI3XepGCDvp2NcudH2k4UDYcO91Q8fEyo1Ap miranice@miranice-HP-ProBook-440-14-inch-G9-Notebook-PC}
+          ssh_private_key: ${{ secrets.ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMbgjaUSuI3XepGCDvp2NcudH2k4UDYcO91Q8fEyo1Ap miranice@miranice-HP-ProBook-440-14-inch-G9-Notebook-PC}}
           target_repo_url: ${{ env.MIRROR_URL }}
