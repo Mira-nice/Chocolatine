@@ -20,7 +20,7 @@ jobs:
         run: |
           if [[ "$GITHUB_REPOSITORY" == *"B-CPE-210-COT-2-1-solostumper08-miranice.adjovi"* ]]; then
             echo "This is the mirror repository, skipping jobs."
-            exit 0
+            exit 1
           fi
   
   check_coding_style:
@@ -44,7 +44,7 @@ jobs:
               msg=$(echo "$line" | cut -d ':' -f3-)
               echo "::error file=$file,line=$line_num::$msg"
             done < coding-style-reports.log
-            exit 1
+            exit 0
           fi
 
   check_program_compilation:
