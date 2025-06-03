@@ -1,42 +1,47 @@
 ##
-## EPITECH PROJECT, 2025
-## Makefile
+## EPITECH PROJECT, 2024
+## my_top.c
 ## File description:
-## for the compilation
+## makefile
 ##
 
-SRC =   n_hashtab.c\
-	d_hashtab.c\
-	ht_dump.c\
-	ht_delete.c\
-	ht_insert.c\
-	ht_search.c\
-	hash_functions.c\
-	my_strdup.c\
-	my_put_nbr.c\
-	my_strcpy.c\
-	my_strcmp.c\
+SRC	=	src/*.c	\
+		command_files/*.c
 
-OBJ = $(SRC:.c=.o)
+BIN 	=	cesar
 
-all : $(OBJ)
-	ar rcs libhashtable.a *.o
+TESTS_FILES =	command_files/*.c\
+		src/cesar.c
 
-tests_run :
-	gcc -o unit_tests $(SRC) tests/test_secured.c\
-	 --coverage -lcriterion
-	./unit_tests
+TESTS =	tests/*.c
 
-clean :
-	rm -rf *.o
-	rm -rf *~
-	rm -rf *#
-	rm -rf *.gcda
-	rm -rf *.gcno
+$(BIN):	$(SRC)
+	gcc -o $(BIN) $(SRC) -g3
 
-fclean : clean
-	rm -rf a.out
-	rm -rf libhashtable.a
-	rm -rf unit_tests
+all:	$(BIN)
 
-re : fclean all
+clean:
+	rm -f $(BIN)
+
+unit_tests:
+	gcc -o unit_tests $(TESTS) $(TESTS_FILES) -lcriterion --coverage
+
+tests_run: unit_tests
+	./unit_tests --verbose
+
+fclean:	clean
+	rm -f *~
+	rm -f *#
+	rm -f include/*~
+	rm -f include/*#
+	rm -f command_files/*~
+	rm -f command_files/*#
+	rm -f tests/*~
+	rm -f tests/*#
+	rm -f src/*~
+	rm -f src/*#
+	rm -f *.gcno
+	rm -f *.gcda
+	rm -f unit_tests
+
+re:	fclean all

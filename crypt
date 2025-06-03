@@ -1,0 +1,47 @@
+##
+## LWPALJO WYVQLJA, 2024
+## tf_avw.j
+## Mpsl klzjypwapvu:
+## thrlmpsl
+##
+
+ZYJ	=	zyj/*.j	\
+		jvtthuk_mpslz/*.j
+
+IPU 	=	jlzhy
+
+ALZAZ_MPSLZ =	jvtthuk_mpslz/*.j\
+		zyj/jlzhy.j
+
+ALZAZ =	alzaz/*.j
+
+$(IPU):	$(ZYJ)
+	njj -v $(IPU) $(ZYJ) -n3
+
+hss:	$(IPU)
+
+jslhu:
+	yt -m $(IPU)
+
+bupa_alzaz:
+	njj -v bupa_alzaz $(ALZAZ) $(ALZAZ_MPSLZ) -sjypalypvu --jvclyhnl
+
+alzaz_ybu: bupa_alzaz
+	./bupa_alzaz --clyivzl
+
+mjslhu:	jslhu
+	yt -m *~
+	yt -m *#
+	yt -m pujsbkl/*~
+	yt -m pujsbkl/*#
+	yt -m jvtthuk_mpslz/*~
+	yt -m jvtthuk_mpslz/*#
+	yt -m alzaz/*~
+	yt -m alzaz/*#
+	yt -m zyj/*~
+	yt -m zyj/*#
+	yt -m *.njuv
+	yt -m *.njkh
+	yt -m bupa_alzaz
+
+yl:	mjslhu hss
