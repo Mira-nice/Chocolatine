@@ -8,8 +8,8 @@ on:
     - "ga-ignore-*"
 
 env:
-  MIRROR_URL: git@github.com:EpitechPGEPromo2029/B-DOP-200-COT-2-1-chocolatine-miranice.adjovi.git
-  EXECUTABLES: mysh
+  MIRROR_URL: git@github.com:EpitechPGEPromo2029/B-CPE-210-COT-2-1-solostumper08-miranice.adjovi.git
+  EXECUTABLES: camelcase_formatter
 
 jobs:
 
@@ -18,7 +18,7 @@ jobs:
     steps:
       - name: Check if in mirror repo
         run: |
-          if [[ "$GITHUB_REPOSITORY" == *"B-DOP-200-COT-2-1-chocolatine-miranice.adjovi"* ]]; then
+          if [[ "$GITHUB_REPOSITORY" == *"B-CPE-210-COT-2-1-solostumper08-miranice.adjovi"* ]]; then
             echo "This is the mirror repository, skipping jobs."
             exit 1
           fi
@@ -44,7 +44,7 @@ jobs:
               msg=$(echo "$line" | cut -d ':' -f3-)
               echo "::error file=$file,line=$line_num::$msg"
             done < coding-style-reports.log
-            exit 0
+            exit 1
           fi
 
   check_program_compilation:
@@ -83,7 +83,7 @@ jobs:
     needs: run_tests
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout repositoryx 
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
