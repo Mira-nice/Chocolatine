@@ -20,7 +20,7 @@ jobs:
         run: |
           if [[ "$GITHUB_REPOSITORY" == *"B-CPE-210-COT-2-1-solostumper08-miranice.adjovi"* ]]; then
             echo "This is the mirror repository, skipping jobs."
-            exit 1
+            exit 0
           fi
   
   check_coding_style:
